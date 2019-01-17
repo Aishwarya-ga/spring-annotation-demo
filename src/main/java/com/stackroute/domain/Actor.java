@@ -1,23 +1,30 @@
 package com.stackroute.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
+@PropertySource("classpath:application.properties")
 public class Actor {
-    @Value("aishwarya")
+//    @Value("${actor.name}")
     private String name;
-    @Value("female")
+//    @Value("${actor.gender}")
     private String gender;
-    @Value("22")
+//    @Value("${actor.age}")
     private int age;
-    //getter and setter methods
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
+
+    public Actor(){}
+    @Autowired
+    public Actor(@Value("${actor.name}") String name,@Value("${actor.gender}") String gender,@Value("${actor.age}") int age){
         this.name = name;
+        this.gender = gender;
+        this.age = age;
     }
+    //getter and setter methods
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     public String getGender() {
         return gender;
@@ -36,8 +43,8 @@ public class Actor {
     @Override
     public String toString() {
         return "Actor{" +
-                "name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
+                "name=" + name + '\'' +
+                ", gender=" + gender + '\'' +
                 ", age=" + age +
                 '}';
     }
